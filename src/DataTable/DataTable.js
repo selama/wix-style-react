@@ -79,7 +79,8 @@ class DataTable extends WixComponent {
         loader={this.props.loader}
         useWindow={this.props.useWindow}
         scrollElement={this.props.scrollElement}
-        >{table}
+        >
+        {table}
       </InfiniteScroll>
     );
   };

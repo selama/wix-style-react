@@ -80,7 +80,9 @@ describe('Table', () => {
     const rowDataHook = 'row-data-hook';
     const props = Object.assign({}, defaultProps, {rowDataHook});
     const driver = createDriver(<DataTable {...props}/>);
-    expect(driver.getRowsWithDataHookCount(rowDataHook)).toBe(defaultProps.data.length);
+    expect(driver.getRowsWithDataHook(rowDataHook)[0].textContent).toBe('0value 1value 2');
+    expect(driver.getRowsWithDataHook(rowDataHook)[1].textContent).toBe('1value 3value 4');
+    expect(driver.getRowsWithDataHook(rowDataHook).length).toBe(defaultProps.data.length);
   });
 
   it('should assign a dynamic dataHook to rows', () => {

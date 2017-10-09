@@ -17,7 +17,7 @@ const dataTableDriverFactory = ({element, wrapper, component}) => {
   return {
     getRowsCount,
     getRowsWithClassCount: className => values(getRows()).filter(elem => elem.classList.contains(className)).length,
-    getRowsWithDataHookCount: dataHookName => element.querySelectorAll(`[data-hook="${dataHookName}"]`).length,
+    getRowsWithDataHook: dataHookName => element.querySelectorAll(`[data-hook="${dataHookName}"]`),
     getRowWithDataHook: dataHookName => element.querySelector(`[data-hook="${dataHookName}"]`),
     getRowText: index => values(getRows()[index].querySelectorAll('td')).map(td => td.textContent),
     getRowClasses: index => values(getRows()[index].classList),
