@@ -21,7 +21,7 @@ const runInputWithOptionsTest = driverFactory => {
     ];
 
     it('should show dropdown when autofocus is on', () => {
-      const {inputDriver, dropdownLayoutDriver} = createDriver(<InputWithOptions options={options} autoFocus={true}/>);
+      const {inputDriver, dropdownLayoutDriver} = createDriver(<InputWithOptions options={options} autoFocus/>);
       expect(inputDriver.isFocus()).toBeTruthy();
       expect(dropdownLayoutDriver.isShown()).toBeTruthy();
     });

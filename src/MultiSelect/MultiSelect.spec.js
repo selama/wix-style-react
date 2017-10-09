@@ -29,7 +29,7 @@ describe('multiSelect', () => {
   ];
 
   it('should show dropdown when autofocus is on', () => {
-    const {inputDriver, dropdownLayoutDriver} = createDriver(<MultiSelect options={options} autoFocus={true}/>);
+    const {inputDriver, dropdownLayoutDriver} = createDriver(<MultiSelect options={options} autoFocus/>);
     expect(inputDriver.isFocus()).toBeTruthy();
     expect(dropdownLayoutDriver.isShown()).toBeTruthy();
   });
@@ -37,7 +37,7 @@ describe('multiSelect', () => {
   it('should remove options that were selected and became tags', () => {
     const tags = [{id: 'Alabama', label: 'Alabama'}];
 
-    const {driver, dropdownLayoutDriver} = createDriver(<MultiSelect options={options} autoFocus={true}/>);
+    const {driver, dropdownLayoutDriver} = createDriver(<MultiSelect options={options} autoFocus/>);
     expect(dropdownLayoutDriver.optionsLength()).toBe(options.length);
     expect(dropdownLayoutDriver.isOptionExists('Alabama')).toBeTruthy();
 

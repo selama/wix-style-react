@@ -9,7 +9,7 @@ export default () =>
   <div data-hook="card-example" className={styles.exampleContainer}>
     <Container>
       <AutoAdjustedRow>
-        <Card stretchVertically={true}>
+        <Card stretchVertically>
           <Card.ButtonHeader
             tooltip={<Tooltip placement="top" alignment="center" content="Hi there!"/>}
             title="Stretched Card 1"
@@ -22,7 +22,7 @@ export default () =>
           <Card.Content>Here comes some AMAZING content that will blow your mind.
             Or just show you that the card next to me got my height.</Card.Content>
         </Card>
-        <Card stretchVertically={true}>
+        <Card stretchVertically>
           <Card.ButtonHeader
             tooltip={<Tooltip placement="top" alignment="center" content="Hi there!"/>}
             title="Stretched Card 2"

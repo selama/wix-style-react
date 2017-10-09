@@ -13,7 +13,7 @@ describe('ToggleSwitch', () => {
 
   describe('checked attribute', () => {
     it('should pass down to input', () => {
-      const driver = createDriver(<ToggleSwitch checked={true} onChange={() => {}}/>);
+      const driver = createDriver(<ToggleSwitch checked onChange={() => {}}/>);
       expect(driver.isChecked()).toBeTruthy();
     });
 

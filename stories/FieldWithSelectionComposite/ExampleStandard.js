@@ -111,7 +111,7 @@ class ExampleStandard extends Component {
                 onChange={error => this.setState({error})}
                 >
                 <RadioGroup.Radio value={false}>False</RadioGroup.Radio>
-                <RadioGroup.Radio value={true}>True</RadioGroup.Radio>
+                <RadioGroup.Radio value>True</RadioGroup.Radio>
               </RadioGroup>
             </div>
           </div>
@@ -124,7 +124,7 @@ class ExampleStandard extends Component {
                 onChange={disabled => this.setState({disabled})}
                 >
                 <RadioGroup.Radio value={false}>False</RadioGroup.Radio>
-                <RadioGroup.Radio value={true}>True</RadioGroup.Radio>
+                <RadioGroup.Radio value>True</RadioGroup.Radio>
               </RadioGroup>
             </div>
           </div>

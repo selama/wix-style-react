@@ -80,7 +80,7 @@ class TabsExample extends Component {
               value={this.state.hasDivider}
               onChange={hasDivider => this.setState({hasDivider})}
               >
-              <RadioGroup.Radio value={true}>Visible</RadioGroup.Radio>
+              <RadioGroup.Radio value>Visible</RadioGroup.Radio>
               <RadioGroup.Radio value={false}>Hidden</RadioGroup.Radio>
             </RadioGroup>
           </div>
