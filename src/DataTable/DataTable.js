@@ -40,7 +40,6 @@ class DataTable extends WixComponent {
           this.setState({lastPage: this.calcLastPage(nextProps)});
         }
       }
-
       if (!isLoadingMore) {
         this.setState(this.createInitialScrollingState(nextProps));
       }
@@ -80,8 +79,7 @@ class DataTable extends WixComponent {
         loader={this.props.loader}
         useWindow={this.props.useWindow}
         scrollElement={this.props.scrollElement}
-        >
-        {table}
+        >{table}
       </InfiniteScroll>
     );
   };
@@ -137,7 +135,11 @@ class DataTable extends WixComponent {
     }
 
     if (rowDataHook) {
-      optionalRowProps['data-hook'] = rowDataHook;
+      if (typeof rowDataHook === 'string') {
+        optionalRowProps['data-hook'] = rowDataHook;
+      } else {
+        optionalRowProps['data-hook'] = rowDataHook(rowData, rowNum);
+      }
     }
 
     if (dynamicRowClass) {
@@ -157,7 +159,10 @@ class DataTable extends WixComponent {
 
       rowsToRender.push(
         <tr key={`${rowNum}_details`} className={classNames(s.rowDetails)}>
-          <td data-hook={`${rowNum}_details`} className={classNames(s.details, showDetails ? s.active : '')} colSpan={this.props.columns.length}>
+          <td
+            data-hook={`${rowNum}_details`} className={classNames(s.details, showDetails ? s.active : '')}
+            colSpan={this.props.columns.length}
+            >
             <div className={classNames(s.rowDetailsInner)}>
               <Animator show={showDetails} height>
                 {rowDetails(rowData, rowNum)}
@@ -173,7 +178,12 @@ class DataTable extends WixComponent {
 
   renderCell = (rowData, column, rowNum, colNum) => {
     const classes = classNames({[s.important]: column.important});
-    return <td style={column.style} className={classes} key={colNum}>{column.render && column.render(rowData, rowNum)}</td>;
+    return (<td
+      style={column.style} className={classes}
+      key={colNum}
+      >
+      {column.render && column.render(rowData, rowNum)}
+    </td>);
   };
 
   calcLastPage = ({data, itemsPerPage}) => Math.ceil(data.length / itemsPerPage) - 1;
@@ -294,7 +304,10 @@ DataTable.propTypes = {
     sortDescending: PropTypes.bool
   })),
   showHeaderWhenEmpty: PropTypes.bool,
-  rowDataHook: PropTypes.string,
+  rowDataHook: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.string
+  ]),
   rowClass: PropTypes.string,
   dynamicRowClass: PropTypes.func,
   onRowClick: PropTypes.func,

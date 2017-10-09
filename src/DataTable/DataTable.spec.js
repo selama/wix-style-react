@@ -76,6 +76,21 @@ describe('Table', () => {
     expect(driver.getRowsWithClassCount(defaultProps.rowClass)).toBe(defaultProps.data.length);
   });
 
+  it('should assign dataHook to rows', () => {
+    const rowDataHook = 'row-data-hook';
+    const props = Object.assign({}, defaultProps, {rowDataHook});
+    const driver = createDriver(<DataTable {...props}/>);
+    expect(driver.getRowsWithDataHookCount(rowDataHook)).toBe(defaultProps.data.length);
+  });
+
+  it('should assign a dynamic dataHook to rows', () => {
+    const calcDataHook = (rowData, rowIndex) => `row-index-${rowIndex}-a-${rowData.a.replace(' ', '_')}`;
+    const props = Object.assign({}, defaultProps, {rowDataHook: calcDataHook});
+    const driver = createDriver(<DataTable {...props}/>);
+    expect(driver.getRowWithDataHook(`row-index-0-a-value_1`).textContent).toBe('0value 1value 2');
+    expect(driver.getRowWithDataHook(`row-index-1-a-value_3`).textContent).toBe('1value 3value 4');
+  });
+
   it('should get a row classes', () => {
     const getDynamicClass = (rowData, rowNum) => rowNum === 1 ? 'rowNum1' : '';
     const driver = createDriver(<DataTable {...defaultProps} dynamicRowClass={getDynamicClass}/>);
@@ -256,7 +271,12 @@ describe('Table', () => {
     it('should exist', () => {
       const div = document.createElement('div');
       const dataHook = 'myDataHook';
-      const wrapper = div.appendChild(ReactTestUtils.renderIntoDocument(<div><DataTable dataHook={dataHook} {...defaultProps}/></div>));
+      const wrapper = div.appendChild(ReactTestUtils.renderIntoDocument(<div>
+        <DataTable
+          dataHook={dataHook}
+          {...defaultProps}
+          />
+      </div>));
       const dataTableTestkit = dataTableTestkitFactory({wrapper, dataHook});
       expect(dataTableTestkit.hasChildWithId(defaultProps.id)).toBeTruthy();
     });
