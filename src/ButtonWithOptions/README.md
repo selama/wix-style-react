@@ -14,6 +14,7 @@
 | dropdownWidth | string | - | - | An optional custom width for the dropdown |
 | dropdownOffsetLeft | string | 0 | - | Am optional horizontal offset to the dropdown |
 | restrainDropdownSize | bool | true | - | Restrain dropdown width to button's width |
+| showTrigger | [click, hover] | click | - | The event that would trigger openning the dropdown layout |
 | ***All of the Button's and DropdownLayout Props are also available for this component*** | | | | |
 
 > ButtonWithOptions.Button - the Button component to be used

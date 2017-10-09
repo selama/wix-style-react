@@ -1,0 +1,15 @@
+.wrapper {
+  position: relative;
+}
+
+.mutual-hover-box {
+  position: absolute;
+  z-index: 1000;
+  height: 35px ;
+  width: 100%;
+}
+
+.icon-wrapper, .button-wrapper {
+  display: flex;
+  justify-content: center;
+}

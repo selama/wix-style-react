@@ -14,13 +14,15 @@ export default class Example extends React.Component {
   }
   render() {
     return (
-      <div style={{display: 'flex', alignItems: 'center', marginLeft: '30px'}} className="ltr">
-        <LanguagePicker dataHook="story-languagePicker" onSelect={languageKey => this.setState({languageKey})}>
-          <LanguagePicker.Option languageKey="en">English</LanguagePicker.Option>
-          <LanguagePicker.Option languageKey="fr">French</LanguagePicker.Option>
-          <LanguagePicker.Option languageKey="tr">Turkish</LanguagePicker.Option>
-        </LanguagePicker>
-        <h1>{mockDictionary[this.state.languageKey]}</h1>
+      <div className="ltr">
+        <div style={{display: 'flex', alignItems: 'center', marginLeft: '30px'}}>
+          <LanguagePicker dataHook="story-languagePicker" onSelect={languageKey => this.setState({languageKey})}>
+            <LanguagePicker.Option languageKey="en" linkTo="http://en.wix.com">English</LanguagePicker.Option>
+            <LanguagePicker.Option languageKey="fr" linkTo="http://fr.wix.com">French</LanguagePicker.Option>
+            <LanguagePicker.Option languageKey="tr" linkTo="http://tr.wix.com">Turkish</LanguagePicker.Option>
+          </LanguagePicker>
+          <h1>{mockDictionary[this.state.languageKey]}</h1>
+        </div>
       </div>
     );
   }

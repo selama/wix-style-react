@@ -4,20 +4,12 @@ import WixComponent from '../BaseComponents/WixComponent';
 import omit from 'omit';
 import DropdownLayout from '../DropdownLayout/DropdownLayout';
 import Button from '../Button';
+import styles from './ButtonWithOptions.scss';
 
 class ButtonWithOptions extends WixComponent {
-  // Abstraction
-  dropdownClasses() {
-  }
-
-  dropdownAdditionalProps() {
-  }
-
   constructor(props) {
     super(props);
-    this.state = {
-      showOptions: false,
-    };
+    this.state = {showOptions: false};
 
     this._onSelect = this._onSelect.bind(this);
     this._onKeyDown = this._onKeyDown.bind(this);
@@ -51,7 +43,7 @@ class ButtonWithOptions extends WixComponent {
   }
 
   _renderDropdownLayout() {
-    const dropdownProps = Object.assign(omit(['dataHook'], this.props), this.dropdownAdditionalProps());
+    const dropdownProps = omit(['dataHook'], this.props);
     const customStyle = {marginLeft: this.props.dropdownOffsetLeft};
     if (this.props.dropdownWidth) {
       customStyle.width = this.props.dropdownWidth;
@@ -61,8 +53,9 @@ class ButtonWithOptions extends WixComponent {
       const {children: value, ...rest} = option.props;
       return {value, ...rest};
     });
+
     return (
-      <div className={this.dropdownClasses()} style={customStyle}>
+      <div style={customStyle}>
         <DropdownLayout
           ref={dropdownLayout => this.dropdownLayout = dropdownLayout}
           {...dropdownProps}
@@ -71,18 +64,27 @@ class ButtonWithOptions extends WixComponent {
           visible={this.state.showOptions}
           onClose={this.hideOptions}
           onSelect={this._onSelect}
-          onClickOutside={this.hideOptions}
-          />
+          onClickOutside={this.props.showTrigger === 'click' ? this.hideOptions : null}
+          onMouseLeave={this.props.showTrigger === 'hover' ? this.hideOptions : null}
+          onMouseEnter={this.props.showTrigger === 'hover' ? this.showOptions : null}
+        />
       </div>
     );
   }
 
   render() {
-    const {dropDirectionUp, style} = this.props;
+    const {dropDirectionUp, style, showTrigger} = this.props;
     const sizeRestrictionStyles = this.props.restrainDropdownSize ? {display: 'inline-block'} : {};
     const customStyle = Object.assign({}, sizeRestrictionStyles, style);
     return (
-      <div style={customStyle}>
+      <div className={styles.wrapper} style={customStyle}>
+        { showTrigger === 'hover' &&
+          <div
+            className={styles.mutualHoverBox}
+            onMouseEnter={this.showOptions}
+            onMouseLeave={this.hideOptions}
+          />
+        }
         {dropDirectionUp ? this._renderDropdownLayout() : null}
         <div onKeyDown={this._onKeyDown} onFocus={this._onFocus}>
           {this.renderButton()}
@@ -148,19 +150,21 @@ ButtonWithOptions.defaultProps = {
   closeOnSelect: true,
   valueParser: option => option.value,
   dropdownOffsetLeft: '0',
-  restrainDropdownSize: true
+  restrainDropdownSize: true,
+  showTrigger: 'click'
 };
 
 ButtonWithOptions.propTypes = {
   ...DropdownLayout.propTypes,
   closeOnSelect: PropTypes.bool,
   valueParser: PropTypes.func,
+  showTrigger: PropTypes.oneOf(['click', 'hover']),
   dropdownWidth: PropTypes.string,
   dropdownOffsetLeft: PropTypes.string,
   restrainDropdownSize: PropTypes.bool,
   children: PropTypes.arrayOf((propValue, key) => {
-    if (key === 0 && propValue[key].type !== ButtonWithOptions.Button) {
-      return new Error(`ButtonWithOptions: Invalid Prop children, first child must be ButtonWithOptions.Button`);
+    if (key === 0 && propValue[key].type !== ButtonWithOptions.Button && propValue[key].type !== ButtonWithOptions.Icon) {
+      return new Error(`ButtonWithOptions: Invalid Prop children, first child must be ButtonWithOptions.Button or ButtonWithOptions.Icon`);
     }
 
     if (key !== 0) {
@@ -179,8 +183,14 @@ ButtonWithOptions.Option = function () {
 ButtonWithOptions.Option.displayName = 'ButtonWithOptions.Option';
 
 ButtonWithOptions.Button = function (props) {
-  return <Button {...props}/>;
+  return <div className={styles.buttonWrapper}><Button {...props}/></div>;
 };
 ButtonWithOptions.Button.displayName = 'ButtonWithOptions.Button';
+
+ButtonWithOptions.Icon = function (props) {
+  return <div className={styles.iconWrapper} {...props}/>;
+};
+ButtonWithOptions.Icon.displayName = 'ButtonWithOptions.Icon';
+
 
 export default ButtonWithOptions;

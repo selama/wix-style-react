@@ -9,7 +9,8 @@ export default class LanguagePicker extends WixComponent {
     const dividerChild = React.cloneElement(
       this.props.children[0], {
         children: '-',
-        languageKey: '-'
+        languageKey: '-',
+        linkTo: ''
       });
 
     const dividedChildren = [...this.props.children];
@@ -23,11 +24,11 @@ export default class LanguagePicker extends WixComponent {
     const dividedChildren = this.createDividedChildren();
 
     return dividedChildren.map(languagePickerOption => {
-      const {languageKey} = languagePickerOption.props;
+      const {languageKey, linkTo} = languagePickerOption.props;
       const languageName = languagePickerOption.props.children;
 
       return (
-        <ButtonWithOptions.Option key={languageKey} id={languageKey}>
+        <ButtonWithOptions.Option key={languageKey} id={languageKey} linkTo={linkTo}>
           {languageName}
         </ButtonWithOptions.Option>
       );
@@ -42,10 +43,11 @@ export default class LanguagePicker extends WixComponent {
         onSelect={option => onSelect(option.id)}
         dropdownWidth={dropdownWidth}
         dropdownOffsetLeft={dropdownOffsetLeft}
+        withArrow
+        itemHeight="big"
+        showTrigger="hover"
         >
-        <ButtonWithOptions.Button type="button" height="medium" theme={theme}>
-          <Languages size="30px"/>
-        </ButtonWithOptions.Button>
+        <ButtonWithOptions.Icon><Languages size="18px"/></ButtonWithOptions.Icon>
         {this.createButtonWithOptionsOptions()}
       </ButtonWithOptions>
     );
@@ -57,8 +59,7 @@ LanguagePicker.displayName = 'LanguagePicker';
 LanguagePicker.defaultProps = {
   theme: 'icon-greybackground',
   onSelect: () => {},
-  dropdownWidth: '100px',
-  dropdownOffsetLeft: '-30px'
+  dropdownWidth: '130px'
 };
 
 LanguagePicker.propTypes = {
@@ -86,9 +87,6 @@ LanguagePicker.propTypes = {
 
   /** An optional custom width for the dropdown */
   dropdownWidth: PropTypes.string,
-
-  /** Am optional horizontal offset to the dropdown */
-  dropdownOffsetLeft: PropTypes.string
 };
 
 LanguagePicker.Option = () => null;
@@ -97,3 +95,4 @@ LanguagePicker.Option.propTypes = {
   languageKey: PropTypes.string.isRequired,
   children: PropTypes.string
 };
+
