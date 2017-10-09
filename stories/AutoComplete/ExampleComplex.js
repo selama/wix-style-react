@@ -38,9 +38,9 @@ class ControlledAutoComplete extends React.Component {
       <AutoComplete
         ref="title"
         value={this.state.title}
-        error={true}
+        error
         placeholder={'Place holder'}
-        autoSelect={true}
+        autoSelect
         options={this.state.suggestions}
         onSelect={this.onSet}
         onManuallyInput={this.onManuallyInput}
