@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {bool, node} from 'prop-types';
 import styles from './FieldLabelAttributes.scss';
 import WixComponent from '../BaseComponents/WixComponent';
 import Tooltip from '../Tooltip';
@@ -40,9 +40,9 @@ FieldLabelAttributes.defaultProps = {
 };
 
 FieldLabelAttributes.propTypes = {
-  required: PropTypes.bool,
-  info: PropTypes.string,
-  appendToParent: PropTypes.bool
+  required: bool,
+  info: node,
+  appendToParent: bool
 };
 
 export default FieldLabelAttributes;

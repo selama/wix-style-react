@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import WixComponent from '../BaseComponents/WixComponent';
-
+import classNames from 'classnames';
 import typography, {convertFromUxLangToCss} from '../Typography';
-
 import styles from './styles.scss';
 
 
@@ -29,12 +28,26 @@ export default class extends WixComponent {
       'T4', 'T4.1', 'T4.2', 'T4.3',
       'T5', 'T5.1']),
 
+    /** should the text be ellipsed or not */
+    ellipsis: PropTypes.bool,
+
+    /** should hide the title tooltip that is shown on mouse hover when using the ellipsis prop */
+    forceHideTitle: PropTypes.bool,
+
     /** any nodes to be rendered (usually text nodes) */
     children: PropTypes.node
   }
 
   static defaultProps = {
     appearance: 'T1.1'
+  }
+
+  getTitle = () => {
+    const {forceHideTitle, ellipsis, children} = this.props;
+
+    return typeof children === 'string' && ellipsis && !forceHideTitle ?
+      children :
+      null;
   }
 
   getType = appearance =>
@@ -59,11 +72,17 @@ export default class extends WixComponent {
       .join(' ');
 
   render() {
-    const {appearance, children} = this.props;
+    const {appearance, ellipsis, children} = this.props;
 
     return React.createElement(
       this.getType(appearance),
-      {className: this.getClassNames(appearance)},
+      {
+        title: this.getTitle(),
+        className: classNames({
+          [this.getClassNames(appearance)]: true,
+          [styles.ellipsis]: ellipsis
+        })
+      },
       children
     );
   }

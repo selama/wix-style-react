@@ -2,6 +2,7 @@
 @import '../Typography/Typography.scss';
 
 $option_height: 35px;
+$big_option_hight: 47px;
 $content_container_height: 260px;
 $top-arrow-size: 8px;
 
@@ -97,7 +98,6 @@ $top-arrow-size: 8px;
 .option {
   line-height: $option_height;
   min-height: $option_height;
-  height: $option_height;
 
   white-space: nowrap;
   overflow: hidden;
@@ -114,6 +114,20 @@ $top-arrow-size: 8px;
   cursor: pointer;
 
   width:100%;
+  display: flex;
+  align-items: center;  
+
+  &.small-height {
+    height: $option_height;
+  }
+
+  &.big-height {
+    height: $big_option_hight;
+  }
+}
+
+a[data-hook=link-item] {
+  text-decoration: none;
 }
 
 .disabled {

@@ -20,6 +20,8 @@
 | theme | string | - | - | The theme of the dropdown. currently only 'b2b' theme is supported |
 | maxHeightPixels | number | 260 | - | Set the max height of the dropdownLayout in pixels |
 | closeOnSelect | bool | true | - | Will preventDefault of the event when pressing the tab key|
+| onMouseEnter | func | - | - | Callback function called whenever the user entered with the mouse to the dropdown layout|
+| onMouseLeave | func | - | - | Callback function called whenever the user exited with the mouse from the dropdown layout|
 
 ## Option
 
@@ -29,4 +31,5 @@
 | value | string or node | - | + | Can be a text or a react elements, if text is '-', a divider will render at that position. |
 | disabled | bool | false | - | Whether this option is disabled or not |
 | title | bool | false | - | Whether this option is a title or not |
+| linkTo | string | - | - | When provided the option will be an anchor to the given value |
 | overrideStyle | bool | false | - | When this is on, no external style will be added to this option, only the internal node style, for further information see the examples |

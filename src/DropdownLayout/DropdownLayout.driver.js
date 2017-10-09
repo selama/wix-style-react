@@ -34,6 +34,9 @@ const dropdownLayoutDriverFactory = ({element, wrapper, component}) => {
     isOptionSelected: position => doIfOptionExists(position, () => isClassExists(optionAt(position), 'selected')),
     isOptionHoveredWithGlobalClassName: position => doIfOptionExists(position, () => isClassExists(optionAt(position), 'wixstylereactHovered')),
     isOptionSelectedWithGlobalClassName: position => doIfOptionExists(position, () => isClassExists(optionAt(position), 'wixstylereactSelected')),
+    isOptionHeightSmall: position => doIfOptionExists(position, () => isClassExists(optionAt(position), 'smallHeight')),
+    isOptionHeightBig: position => doIfOptionExists(position, () => isClassExists(optionAt(position), 'bigHeight')),
+    isLinkOption: position => optionAt(position).tagName.toLowerCase() === 'a',
     classes: () => options.className,
     pressDownKey: () => ReactTestUtils.Simulate.keyDown(element, {key: 'ArrowDown'}),
     pressUpKey: () => ReactTestUtils.Simulate.keyDown(element, {key: 'ArrowUp'}),
@@ -47,6 +50,8 @@ const dropdownLayoutDriverFactory = ({element, wrapper, component}) => {
       option && ReactTestUtils.Simulate.click(option);
     },
     isOptionADivider: position => doIfOptionExists(position, () => isClassExists(optionAt(position), 'divider')),
+    mouseEnter: () => ReactTestUtils.Simulate.mouseEnter(element),
+    mouseLeave: () => ReactTestUtils.Simulate.mouseLeave(element),
     setProps: props => {
       const ClonedWithProps = React.cloneElement(component, Object.assign({}, component.props, props), ...(component.props.children || []));
       ReactDOM.render(<div ref={r => element = r}>{ClonedWithProps}</div>, wrapper);

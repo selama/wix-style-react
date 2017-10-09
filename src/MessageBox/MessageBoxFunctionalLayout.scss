@@ -8,9 +8,10 @@
 
 .body {
     @include FontLight();
-    color: $paletteD2;
-    font-size: 16px;
+    color     : $paletteD2;
+    font-size : 16px;
     line-height: 24px;
+    padding   : 36px 30px 42px 30px;
 }
 
 

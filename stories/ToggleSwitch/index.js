@@ -26,7 +26,7 @@ storiesOf('Core', module)
           source={ToggleSwitchSource}
           component={ToggleSwitch}
           componentProps={(setProps, getProps) => ({
-            onChange: () => setProps({ checked: !getProps().checked })
+            onChange: () => setProps({checked: !getProps().checked})
           })}
           />
 
