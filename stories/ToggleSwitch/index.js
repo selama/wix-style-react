@@ -2,8 +2,10 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 import Markdown from '../utils/Components/Markdown';
 import AutoDocs from '../utils/Components/AutoDocs';
+import AutoExample from '../utils/Components/AutoExample';
 import TabbedView from '../utils/Components/TabbedView';
 import CodeExample from '../utils/Components/CodeExample';
+import ToggleSwitch from 'wix-style-react/ToggleSwitch';
 import ToggleSwitchSource from '!raw-loader!wix-style-react/ToggleSwitch/ToggleSwitch';
 import ReadmeTestKit from '../../src/ToggleSwitch/README.TESTKIT.md';
 
@@ -18,11 +20,15 @@ import ExampleControlledRaw from '!raw-loader!./ExampleControlled';
 
 storiesOf('Core', module)
   .add('ToggleSwitch', () => (
-    <TabbedView tabs={['API Documentation', 'TestKits Documentation']}>
+    <TabbedView tabs={['Usage', 'API', 'TestKit']}>
       <div>
-        <AutoDocs source={ToggleSwitchSource}/>
-
-        <h1>Usage examples</h1>
+        <AutoExample
+          source={ToggleSwitchSource}
+          component={ToggleSwitch}
+          componentProps={(setProps, getProps) => ({
+            onChange: () => setProps({checked: !getProps().checked})
+          })}
+          />
 
         <CodeExample title="Standard" code={ExampleStandardRaw}>
           <ExampleStandard/>
@@ -36,6 +42,8 @@ storiesOf('Core', module)
           <ExampleControlled/>
         </CodeExample>
       </div>
+
+      <AutoDocs source={ToggleSwitchSource}/>
 
       <Markdown source={ReadmeTestKit}/>
     </TabbedView>
